@@ -1,0 +1,1 @@
+web: java -cp target/classes:target/dependency/* edu.udima.es.intregrasaas.heroku.Main
