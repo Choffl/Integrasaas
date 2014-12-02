@@ -43,6 +43,7 @@ public class ProductosResources {
 		
 		return response;
 	}
+
 	
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

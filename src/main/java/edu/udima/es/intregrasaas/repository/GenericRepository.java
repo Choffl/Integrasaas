@@ -10,11 +10,13 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 
 import edu.udima.es.intregrasaas.dominio.Cliente;
 import edu.udima.es.intregrasaas.dominio.Pedido;
 import edu.udima.es.intregrasaas.dominio.Producto;
+import edu.udima.es.intregrasaas.dominio.Proveedor;
 
 
 public class GenericRepository<E> {
@@ -89,8 +91,7 @@ public class GenericRepository<E> {
 		
 		em.getTransaction().commit();
 		em.close();	
-	}
-	
+	}	
 	
 	public static synchronized GenericRepository getInstance(){
 		if(instancia == null){
