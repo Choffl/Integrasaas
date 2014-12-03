@@ -48,7 +48,7 @@ public class ClientesResources {
 
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	public Response crearCliente(@Context final UriInfo uriInfo, Cliente cliente){
+	public Response crearCliente(Cliente cliente){
 		try{
 			GenericRepository.getInstance().crear(cliente);
 			return Response.status(Status.CREATED).build();
