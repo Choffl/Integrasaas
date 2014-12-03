@@ -15,8 +15,8 @@
 			<property name="hibernate.hbm2ddl.auto" value="update"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/integradb" />
-			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="adminadmin" />
+			<property name="javax.persistence.jdbc.user" value="bdbd3ad602eff0" />
+			<property name="javax.persistence.jdbc.password" value="05e7fb4a" />
 		</properties>
 	</persistence-unit>
 </persistence>
