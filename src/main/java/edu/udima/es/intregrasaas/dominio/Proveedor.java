@@ -12,6 +12,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * Clase de dominio que representa a un Proveedor y funciona como DTO.
+ * Contiene las anotaciones necesarias para ser persistido por JPA,
+ * asi como anotaciones de JAXB para realizar en marshalling y unmarshalling
+ * del la clase a formato JSON o XML.
+ * 
+ * @author Sofia Sabariego
+ */
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)

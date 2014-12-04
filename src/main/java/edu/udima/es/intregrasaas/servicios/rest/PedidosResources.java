@@ -13,24 +13,44 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
-import edu.udima.es.intregrasaas.dominio.Cliente;
 import edu.udima.es.intregrasaas.dominio.Pedido;
-import edu.udima.es.intregrasaas.dominio.Producto;
-import edu.udima.es.intregrasaas.dominio.Proveedor;
 import edu.udima.es.intregrasaas.repository.GenericRepository;
 
+/**
+ * Servicio REST para el recurso {@link Pedido}
+ * Usa JAXB para la conversion de POJO a JSON o XML
+ * y viciversa.
+ * 
+ * @author Sofia Sabariego
+ */
 @Path("/pedidos")
 public class PedidosResources {
 
+	/**
+	 * Muestra todos los pedidos. Servicio accesible mediante una peticion GET al
+	 * baseURL del recurso
+	 * Produce tanto una respuesta XML como JSON dependiendo del media type
+	 * especificado por el cliente.
+	 * @return una coleccion de pedidos
+	 */
 	@GET
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Collection<Pedido> mostrarPedidos(){
 		return GenericRepository.getInstance().recuperaTodos(Pedido.class);
 	}
 
+	/**
+	 * Recupera un pedido por su id mediante una peticion GET al recurso
+	 * baseURL/{id}
+	 * Produce tanto una respuesta XML como JSON dependiendo del media type
+	 * especificado por el cliente.
+	 * @param id el identificador del pedido.
+	 * @return un response con el estado de la peticion, y si ha sido correcta los datos del
+	 * pedido en el body.
+	 */
 	@GET
 	@Path("{id}")
 	@Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -46,6 +66,14 @@ public class PedidosResources {
 		return response;
 	}
 
+	/**
+	 * Crea un recurso pedido en el sistema mediante peticiones POST a la url base
+	 * del recurso.
+	 * Acepta los datos del recurso tanto en formato XML como JSON. Estos son convertidos
+	 * al POJO {@link Pedido} mediante JAXB.
+	 * @param pedido a agregar
+	 * @return un response con el estado de la peticion
+	 */
 	@POST
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 	public Response crearPedido(@Context final UriInfo uriInfo, Pedido pedido){
@@ -58,6 +86,15 @@ public class PedidosResources {
 
 	}
 
+	/**
+	 * Modifica los datos de un pedido mediante un peticipn PUT a la url
+	 * urlBase/{id}
+	 * Acepta tanto datos en formato XML como JSON que son transformados en el POJO {@link Pedido}
+	 * mediante JAXB.
+	 * @param id el identificador de BBDD del pedido del que se quiere modificar los datos.
+	 * @param pedidoModificado POJO con los nuevos datos del pedido.
+	 * @return un response con el estado de la peticion.
+	 */
 	@PUT
 	@Path("{id}")
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -73,6 +110,12 @@ public class PedidosResources {
 
 	}
 
+	/**
+	 * Elimina un recurso pedido mediante una peticion DELETE a la url
+	 * urlBase/{id}
+	 * @param id el identificador del pedido en BBDD .
+	 * @return un response con el estado de la peticion.
+	 */
 	@DELETE
 	@Path("{id}")
 	@Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -85,7 +128,12 @@ public class PedidosResources {
 		}
 	}
 
-
+	/*
+	 * actualiza los datos del pedido recuperado de base de datos con
+	 * los datos del pedido enviado en la peticion
+	 * NOTA: El cliente no se modifica al considerarse que no tiene
+	 * sentido desde el punto de vista del negocio
+	 */
 	private void actualizarDatos(Pedido pedido, Pedido pedidoModificado) {
 		pedido.setFechaPedido(pedidoModificado.getFechaPedido());
 		pedido.getProductos().clear();

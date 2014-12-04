@@ -8,6 +8,14 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.ext.Provider;
 
+/**
+ * El filtro modifica las cabaceras del response para permitir las
+ * peticiones cross domain, que la mayoria de navegadores impiden.
+ * Esto es no aceptan peticiones enviadas por XMLHttpRequest de dominios
+ * diferentes de los recursos solicitados en la peticion.
+ * 
+ * @author Sofia Sabariego
+ */
 @Provider
 @PreMatching
 public class CrossDomainFilter implements ContainerResponseFilter{

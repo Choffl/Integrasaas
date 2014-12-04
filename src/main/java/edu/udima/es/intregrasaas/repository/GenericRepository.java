@@ -19,11 +19,27 @@ import edu.udima.es.intregrasaas.dominio.Producto;
 import edu.udima.es.intregrasaas.dominio.Proveedor;
 
 
+/**
+ * Repositorio generico que facilita el acceso a la BBDD
+ * Da soporte a todas las clases de dominio persistentes.
+ * 
+ * @author Sofia Sabariego
+ */
 public class GenericRepository<E> {
 	
+	/*
+	 * Contiene una instancia de si mismo para asegurar
+	 * de que el punto de acesso a la persistencia es unico,
+	 * aunque las sesiones pueden ser multiples
+	 */
 	private static GenericRepository instancia;
 	private static EntityManagerFactory entityManagerFactory;
 	
+	/**
+	 * Recupera todas los objetos persistidos de la clase.
+	 * @param clazz la clase de la que se quieren sus objetos.
+	 * @return una coleccion con los todos los objetos de la clase.
+	 */
 	public Collection<E> recuperaTodos(Class<E> clazz){
 		Collection<E> resultado = new HashSet();
 		
@@ -38,6 +54,13 @@ public class GenericRepository<E> {
 		return resultado;
 	}
 	
+	
+	/**
+	 * Recupera un elemento de una clase por su id
+	 * @param clazz la clase del elemento que se quiere recuperar
+	 * @param id el identificador de BBDD del elemento
+	 * @return el elemento 
+	 */
 	public Object recuperaPorId(Class clazz, Long id) {
 		Object entidad = null;
 		
@@ -51,6 +74,10 @@ public class GenericRepository<E> {
 		return entidad;
 	}
 	
+	/**
+	 * Persiste a BBDD una entidad
+	 * @param entidad a persistir.
+	 */
 	public void crear(Object entidad) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
@@ -61,6 +88,10 @@ public class GenericRepository<E> {
 		em.close();
 	}
 	
+	/**
+	 * Persiste las modificaciones realizadas sobre un elemento.
+	 * @param entidad con modificaciones.
+	 */
 	public void modificar(Object entidad) {
 		EntityManager em = entityManagerFactory.createEntityManager();
 		em.getTransaction().begin();		
@@ -71,6 +102,11 @@ public class GenericRepository<E> {
 		em.close();		
 	}
 	
+	/**
+	 * Elimina un elemento de una determinada clase
+	 * @param clazz la clase del elemento que se desea eliminar.
+	 * @param id el identificador de BBDD del elemento a eliminar.
+	 */
 	public void eliminar(Class clazz, Long id) {
 		Object object = null;
 		EntityManager em = entityManagerFactory.createEntityManager();
@@ -93,6 +129,10 @@ public class GenericRepository<E> {
 		em.close();	
 	}	
 	
+	/**
+	 * Recupera una instancia del repositorio generico
+	 * @return una instancia de {@link GenericRepository}
+	 */
 	public static synchronized GenericRepository getInstance(){
 		if(instancia == null){
 			instancia = new GenericRepository();
@@ -100,10 +140,16 @@ public class GenericRepository<E> {
 		return instancia;
 	}
 	
+	/**
+	 * Inicializa el repositorio
+	 */
 	public static synchronized void init(){
 		instancia = new GenericRepository();
 	}
 	
+	/*
+	 * Constructor privado, inicializa el EntityManagerFactory de JPA
+	 */
 	private GenericRepository(){
 		entityManagerFactory = Persistence.createEntityManagerFactory("integrasaas");
 	}	

@@ -7,6 +7,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+/**
+ * Clase de dominio que representa a un Transportista y funciona como DTO.
+ * Contiene las anotaciones de JAXB para realizar en marshalling y unmarshalling
+ * del la clase a formato JSON o XML.
+ * No es persistida a BBDD.
+ * 
+ * @author Sofia Sabariego
+ */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class Transportista implements Serializable {
