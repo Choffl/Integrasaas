@@ -54,7 +54,7 @@ public class TransportistasResources {
 		Response response = null;
 		
 		Transportista transportista = TransportistasRepository.getInstance().recuperarPorCIF(CIF);
-		if(transportista == null){
+		if(transportista != null){
 			response = Response.ok().entity(transportista).build();
 		}else{
 			response = Response.status(Status.NOT_FOUND).entity("No se ha encontrado el recurso solicitado").build();
