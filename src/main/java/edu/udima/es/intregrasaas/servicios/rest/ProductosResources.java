@@ -57,7 +57,7 @@ public class ProductosResources {
 		Response response = null;
 		
 		Producto producto = (Producto)GenericRepository.getInstance().recuperaPorId(Producto.class, id);
-		if (producto == null){
+		if (producto != null){
 			response = Response.ok(producto).build();
 		}else{
 			response = Response.status(Status.NOT_FOUND).entity("No se ha encontrado el recurso").build();

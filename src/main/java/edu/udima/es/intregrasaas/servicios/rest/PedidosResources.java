@@ -26,7 +26,7 @@ import edu.udima.es.intregrasaas.repository.GenericRepository;
  * 
  * @author Sofia Sabariego
  */
-@Path("/pedidos")
+@Path("pedidos")
 public class PedidosResources {
 
 	/**
@@ -58,7 +58,7 @@ public class PedidosResources {
 		Response response = null;
 		
 		Pedido pedido = (Pedido)GenericRepository.getInstance().recuperaPorId(Pedido.class, id);
-		if(pedido == null){
+		if(pedido != null){
 			response = Response.ok(pedido).build();
 		}else{
 			response = Response.status(Status.NOT_FOUND).entity("No se ha encontrado el recurso").build();
